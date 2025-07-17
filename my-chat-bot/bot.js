@@ -1,4 +1,22 @@
 const { ActivityHandler, MessageFactory } = require('botbuilder');
+const axios = require('axios');
+const endpoint = "YOUR_AZURE_ENDPOINT";
+const key = "YOUR_KEY";
+
+async function getSentiment(text) {
+    const response = await axios.post(
+        `${endpoint}/language/:analyze-text?api-version=2023-04-01`,
+        {
+            kind: "SentimentAnalysis",
+            parameters: { modelVersion: "latest" },
+            analysisInput: {
+                documents: [{ id: "1", language: "en", text: text }]
+            }
+        },
+        { headers: { "Ocp-Apim-Subscription-Key": key, "Content-Type": "application/json" } }
+    );
+    return response.data.results.documents[0].sentiment;
+}
 
 class EchoBot extends ActivityHandler {
     constructor() {
