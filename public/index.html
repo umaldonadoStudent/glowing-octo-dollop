@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heathrow Capital Partners - Smart Real Estate Insights</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f9fafb; /* Light Gray background */
+            color: #1f2937; /* Dark text */
+        }
+        .gradient-text {
+            background: linear-gradient(to right, #2563eb, #10b981);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .cta-button {
+            transition: all 0.3s ease;
+        }
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.2), 0 4px 6px -2px rgba(37, 99, 235, 0.1);
+        }
+        .nav-link {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #2563eb;
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        .service-card, .pricing-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid #e5e7eb;
+            background-color: white;
+        }
+        .service-card:hover, .pricing-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.07), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            border-color: #2563eb;
+        }
+        /* Animation styles */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .fade-in-up.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .animated-bar {
+            transform: scaleY(0);
+            transform-origin: bottom;
+            transition: transform 1s ease-out;
+        }
+        .is-visible .animated-bar {
+            transform: scaleY(1);
+        }
+        .animated-path {
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            animation: draw-line 2s ease-out forwards;
+        }
+        @keyframes draw-line {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Header & Navigation -->
+    <header id="header" class="bg-white/80 backdrop-blur-sm sticky top-0 z-50 border-b border-gray-200">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#home" class="flex items-center space-x-2">
+                <!-- Heathrow Logo -->
+                <svg class="h-8 w-auto" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="40" height="40" rx="8" fill="#2563eb"/>
+                    <path d="M12 12H16V28H12V12Z" fill="white"/>
+                    <path d="M28 12H24V28H28V12Z" fill="white"/>
+                    <path d="M12 19H28V23H12V19Z" fill="white"/>
+                </svg>
+                <span class="text-xl font-bold text-gray-800">Heathrow Capital</span>
+            </a>
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#home" class="nav-link text-gray-600 hover:text-gray-900">Home</a>
+                <a href="#services" class="nav-link text-gray-600 hover:text-gray-900">Services</a>
+                <a href="#analytics" class="nav-link text-gray-600 hover:text-gray-900">Analytics</a>
+                <a href="#pricing" class="nav-link text-gray-600 hover:text-gray-900">Pricing</a>
+                <a href="#about" class="nav-link text-gray-600 hover:text-gray-900">About</a>
+                <a href="#contact" class="nav-link text-gray-600 hover:text-gray-900">Contact</a>
+            </div>
+            <div class="hidden md:flex items-center space-x-4">
+                 <a href="#" class="text-gray-600 hover:text-gray-900 transition">Login</a>
+                 <a href="#pricing" class="bg-blue-600 text-white font-semibold px-5 py-2 rounded-lg cta-button">Get Started</a>
+            </div>
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-button" class="md:hidden text-gray-600 focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </nav>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden px-6 pb-4 bg-white">
+            <a href="#home" class="block py-2 text-gray-600 hover:text-gray-900">Home</a>
+            <a href="#services" class="block py-2 text-gray-600 hover:text-gray-900">Services</a>
+            <a href="#analytics" class="block py-2 text-gray-600 hover:text-gray-900">Analytics</a>
+            <a href="#pricing" class="block py-2 text-gray-600 hover:text-gray-900">Pricing</a>
+            <a href="#about" class="block py-2 text-gray-600 hover:text-gray-900">About</a>
+            <a href="#contact" class="block py-2 text-gray-600 hover:text-gray-900">Contact</a>
+            <hr class="my-2 border-gray-200">
+            <a href="#" class="block py-2 text-gray-600 hover:text-gray-900">Login</a>
+            <a href="#pricing" class="block mt-2 bg-blue-600 text-white font-semibold px-5 py-2 rounded-lg text-center cta-button">Get Started</a>
+        </div>
+    </header>
+
+    <main>
+        <!-- 1. Home Page Section -->
+        <section id="home" class="py-20 md:py-32">
+            <div class="container mx-auto px-6 text-center">
+                <h1 class="text-4xl md:text-6xl font-bold text-gray-900 leading-tight mb-4">
+                    Smart Real Estate Insights & Tools <br class="hidden md:block"/> for <span class="gradient-text">Lake Mary Investors</span>
+                </h1>
+                <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto mb-8">
+                    Leverage data-driven analytics, predictive reports, and essential documents to maximize your real estate returns in Central Florida.
+                </p>
+                <a href="#pricing" class="bg-blue-600 text-white font-bold text-lg px-8 py-4 rounded-lg cta-button inline-block">
+                    Get Started Today
+                </a>
+
+                <div class="mt-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 text-left">
+                    <!-- Value Props will be animated -->
+                    <div class="bg-white p-6 rounded-lg border border-gray-200 animate-on-scroll fade-in-up">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 mb-4 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+                        <h3 class="text-xl font-semibold text-gray-900 mb-2">Real Estate Documents</h3>
+                        <p class="text-gray-600">Access ready-to-use, compliant document templates for leases, sales, and property management.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg border border-gray-200 animate-on-scroll fade-in-up" style="transition-delay: 150ms;">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 mb-4 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg>
+                        <h3 class="text-xl font-semibold text-gray-900 mb-2">Market & Prediction Reports</h3>
+                        <p class="text-gray-600">Gain a competitive edge with in-depth analytics and predictive modeling for the Lake Mary market.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg border border-gray-200 animate-on-scroll fade-in-up" style="transition-delay: 300ms;">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 mb-4 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
+                        <h3 class="text-xl font-semibold text-gray-900 mb-2">Workshops & Webinars</h3>
+                        <p class="text-gray-600">Learn from experts on topics from investment strategy to legal compliance in our live sessions.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg border border-gray-200 animate-on-scroll fade-in-up" style="transition-delay: 450ms;">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 mb-4 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
+                        <h3 class="text-xl font-semibold text-gray-900 mb-2">Investor & Agent Partnerships</h3>
+                        <p class="text-gray-600">Collaborate with us to leverage our data tools and expand your professional network.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. Services Page Section -->
+        <section id="services" class="py-20 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900">Our Services</h2>
+                    <p class="text-lg text-gray-600 mt-2">Tailored solutions for every real estate professional.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
+                    <div class="service-card p-8 rounded-lg animate-on-scroll fade-in-up">
+                        <h3 class="text-2xl font-semibold text-gray-900 mb-3">Document Kits</h3>
+                        <p class="text-gray-600 mb-6">Comprehensive packages of legal and transactional documents. Available for individual purchase or as part of a subscription.</p>
+                        <div class="text-xl font-bold gradient-text mb-6">Starting at $20</div>
+                        <a href="#" class="bg-gray-100 text-gray-800 font-semibold px-6 py-3 rounded-lg hover:bg-gray-200 transition">Browse Documents</a>
+                    </div>
+                    <div class="service-card p-8 rounded-lg animate-on-scroll fade-in-up" style="transition-delay: 150ms;">
+                        <h3 class="text-2xl font-semibold text-gray-900 mb-3">Market Reports & Analytics</h3>
+                        <p class="text-gray-600 mb-6">Deep-dive reports on property trends, rental values, and investment potential in specific Lake Mary zip codes.</p>
+                        <div class="text-xl font-bold gradient-text mb-6">Starting at $75</div>
+                        <a href="#" class="bg-gray-100 text-gray-800 font-semibold px-6 py-3 rounded-lg hover:bg-gray-200 transition">View Reports</a>
+                    </div>
+                    <div class="service-card p-8 rounded-lg animate-on-scroll fade-in-up">
+                        <h3 class="text-2xl font-semibold text-gray-900 mb-3">Workshops & Webinars</h3>
+                        <p class="text-gray-600 mb-6">Live and on-demand educational sessions covering investment strategies, legal updates, and market forecasting.</p>
+                        <div class="text-xl font-bold gradient-text mb-6">Seats from $25</div>
+                        <a href="#" class="bg-gray-100 text-gray-800 font-semibold px-6 py-3 rounded-lg hover:bg-gray-200 transition">See Schedule</a>
+                    </div>
+                    <div class="service-card p-8 rounded-lg animate-on-scroll fade-in-up" style="transition-delay: 150ms;">
+                        <h3 class="text-2xl font-semibold text-gray-900 mb-3">Partnership Programs</h3>
+                        <p class="text-gray-600 mb-6">Custom programs for Realtors, Landlords, and Investors seeking to integrate our data tools into their workflow.</p>
+                        <div class="text-xl font-bold gradient-text mb-6">Inquire for Details</div>
+                        <a href="#contact" class="bg-gray-100 text-gray-800 font-semibold px-6 py-3 rounded-lg hover:bg-gray-200 transition">Contact Us</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- NEW: Interactive Analytics Section -->
+        <section id="analytics" class="py-20">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900">Data-Driven Decisions</h2>
+                    <p class="text-lg text-gray-600 mt-2 max-w-2xl mx-auto">We process thousands of data points to bring you clear, actionable insights.</p>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <div class="animate-on-scroll fade-in-up">
+                        <h3 class="text-2xl font-semibold text-gray-800 mb-4">Lake Mary Market Trends</h3>
+                        <p class="text-gray-600 mb-8">Our platform visualizes key performance indicators, from appreciation rates to rental yield, helping you spot opportunities before anyone else.</p>
+                        <div class="space-y-6">
+                            <div class="flex items-center">
+                                <div class="bg-blue-500 text-white rounded-full h-10 w-10 flex items-center justify-center font-bold mr-4">1</div>
+                                <p class="text-gray-700">Identify high-growth neighborhoods with predictive accuracy.</p>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="bg-green-500 text-white rounded-full h-10 w-10 flex items-center justify-center font-bold mr-4">2</div>
+                                <p class="text-gray-700">Analyze historical price data to inform your offers.</p>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="bg-indigo-500 text-white rounded-full h-10 w-10 flex items-center justify-center font-bold mr-4">3</div>
+                                <p class="text-gray-700">Forecast potential ROI with our proprietary simulator.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="animate-on-scroll fade-in-up" style="transition-delay: 200ms;">
+                        <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-200">
+                            <div class="flex justify-between items-end h-64" id="bar-chart">
+                                <div class="w-1/4 text-center">
+                                    <div class="h-full flex items-end justify-center">
+                                        <div class="w-1/2 bg-blue-300 rounded-t-md animated-bar" style="height: 60%; transition-delay: 100ms;"></div>
+                                    </div>
+                                    <span class="text-sm text-gray-500 mt-2 block">Q1</span>
+                                </div>
+                                <div class="w-1/4 text-center">
+                                    <div class="h-full flex items-end justify-center">
+                                        <div class="w-1/2 bg-blue-400 rounded-t-md animated-bar" style="height: 75%; transition-delay: 200ms;"></div>
+                                    </div>
+                                    <span class="text-sm text-gray-500 mt-2 block">Q2</span>
+                                </div>
+                                <div class="w-1/4 text-center">
+                                    <div class="h-full flex items-end justify-center">
+                                        <div class="w-1/2 bg-blue-500 rounded-t-md animated-bar" style="height: 50%; transition-delay: 300ms;"></div>
+                                    </div>
+                                    <span class="text-sm text-gray-500 mt-2 block">Q3</span>
+                                </div>
+                                <div class="w-1/4 text-center">
+                                    <div class="h-full flex items-end justify-center">
+                                        <div class="w-1/2 bg-blue-600 rounded-t-md animated-bar" style="height: 90%; transition-delay: 400ms;"></div>
+                                    </div>
+                                    <span class="text-sm text-gray-500 mt-2 block">Q4</span>
+                                </div>
+                            </div>
+                             <p class="text-center text-gray-600 font-semibold mt-4">Median Sale Price Growth</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Pricing Page Section -->
+        <section id="pricing" class="py-20 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900">Flexible Pricing Plans</h2>
+                    <p class="text-lg text-gray-600 mt-2">Choose the plan that's right for your investment goals.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="pricing-card p-8 rounded-lg flex flex-col animate-on-scroll fade-in-up">
+                        <h3 class="text-2xl font-semibold text-gray-900">Basic</h3>
+                        <p class="text-gray-600 mt-1">For the essentials.</p>
+                        <div class="my-6">
+                            <span class="text-5xl font-bold text-gray-900">$19</span>
+                            <span class="text-gray-500">/mo</span>
+                        </div>
+                        <ul class="space-y-4 text-gray-600 flex-grow">
+                            <li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Access to all document templates</li>
+                        </ul>
+                        <a href="#" class="mt-8 w-full text-center bg-gray-800 text-white font-semibold py-3 rounded-lg hover:bg-gray-900 transition">Choose Basic</a>
+                    </div>
+                    <div class="pricing-card p-8 rounded-lg flex flex-col ring-2 ring-blue-600 relative animate-on-scroll fade-in-up" style="transition-delay: 150ms;">
+                        <div class="absolute top-0 -translate-y-1/2 bg-blue-600 text-white text-sm font-bold px-4 py-1 rounded-full">MOST POPULAR</div>
+                        <h3 class="text-2xl font-semibold text-gray-900">Pro</h3>
+                        <p class="text-gray-600 mt-1">For the serious investor.</p>
+                        <div class="my-6">
+                            <span class="text-5xl font-bold text-gray-900">$49</span>
+                            <span class="text-gray-500">/mo</span>
+                        </div>
+                        <ul class="space-y-4 text-gray-600 flex-grow">
+                            <li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>All Basic features</li>
+                            <li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Access to all market data reports</li>
+                            <li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Monthly market summary email</li>
+                        </ul>
+                        <a href="#" class="mt-8 w-full text-center bg-blue-600 text-white font-semibold py-3 rounded-lg cta-button">Choose Pro</a>
+                    </div>
+                    <div class="pricing-card p-8 rounded-lg flex flex-col animate-on-scroll fade-in-up" style="transition-delay: 300ms;">
+                        <h3 class="text-2xl font-semibold text-gray-900">Business</h3>
+                        <p class="text-gray-600 mt-1">For professionals & teams.</p>
+                        <div class="my-6">
+                            <span class="text-5xl font-bold text-gray-900">$99</span>
+                            <span class="text-gray-500">/mo</span>
+                        </div>
+                        <ul class="space-y-4 text-gray-600 flex-grow">
+                            <li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>All Pro features</li>
+                            <li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Free entry to all webinars</li>
+                            <li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Priority support</li>
+                        </ul>
+                        <a href="#" class="mt-8 w-full text-center bg-gray-800 text-white font-semibold py-3 rounded-lg hover:bg-gray-900 transition">Choose Business</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. About Page Section -->
+        <section id="about" class="py-20">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900">Why Heathrow Capital Partners?</h2>
+                </div>
+                <div class="max-w-4xl mx-auto text-lg text-gray-700 leading-relaxed space-y-6">
+                    <p>Heathrow Capital Partners was founded on a simple principle: real estate investment decisions should be driven by data, not just intuition. In the dynamic and competitive Lake Mary market, having access to accurate, timely, and predictive information is the key to unlocking superior returns and mitigating risk.</p>
+                    <p>We are not a traditional real estate brokerage. Instead, we are a technology and data services company dedicated to empowering investors, agents, and landlords. Our proprietary tools and in-depth reports provide a level of insight previously unavailable to the individual investor.</p>
+                    <p>Our commitment is to transparency, accuracy, and compliance. All our services are designed to support your investment journey while adhering strictly to Florida's real estate laws. We provide the tools; you make the informed decisions.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. Contact / Lead Capture Section -->
+        <section id="contact" class="py-20 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <h2 class="text-3xl font-bold text-gray-900 mb-4">Get Your Free Investor Guide</h2>
+                        <p class="text-lg text-gray-600 mb-6">Download our exclusive report: <span class="font-semibold text-blue-600">"5 Things Every Lake Mary Investor Must Know in 2025"</span>. Just enter your details, and we'll send it straight to your inbox.</p>
+                        <div class="bg-gray-100 p-6 rounded-lg border border-gray-200">
+                            <img src="https://placehold.co/600x400/e5e7eb/1f2937?text=Investor+Guide+Mockup" alt="Investor Guide Mockup" class="rounded-lg shadow-md" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e5e7eb/1f2937?text=Image+Not+Found';">
+                        </div>
+                    </div>
+                    <div>
+                        <div class="bg-white p-8 rounded-lg border border-gray-200 shadow-lg">
+                            <h3 class="text-2xl font-semibold text-gray-900 mb-6">Contact Us</h3>
+                            <form id="contact-form">
+                                <div class="mb-4">
+                                    <label for="name" class="block text-gray-700 mb-2">Name</label>
+                                    <input type="text" id="name" name="name" class="w-full bg-gray-50 border border-gray-300 rounded-lg py-2 px-4 text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                                </div>
+                                <div class="mb-4">
+                                    <label for="email" class="block text-gray-700 mb-2">Email</label>
+                                    <input type="email" id="email" name="email" class="w-full bg-gray-50 border border-gray-300 rounded-lg py-2 px-4 text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                                </div>
+                                <div class="mb-4">
+                                    <label for="phone" class="block text-gray-700 mb-2">Phone</label>
+                                    <input type="tel" id="phone" name="phone" class="w-full bg-gray-50 border border-gray-300 rounded-lg py-2 px-4 text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                </div>
+                                <div class="mb-6">
+                                    <label for="interest" class="block text-gray-700 mb-2">I'm interested in...</label>
+                                    <select id="interest" name="interest" class="w-full bg-gray-50 border border-gray-300 rounded-lg py-2 px-4 text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                        <option>General Inquiry</option>
+                                        <option>Partnership Programs</option>
+                                        <option>Market Reports</option>
+                                        <option>Membership Plans</option>
+                                    </select>
+                                </div>
+                                <div class="mb-4">
+                                    <label class="flex items-center text-gray-600">
+                                        <input type="checkbox" class="bg-gray-50 border-gray-300 rounded mr-2 text-blue-600 focus:ring-blue-500">
+                                        Opt-in to our newsletter for market updates.
+                                    </label>
+                                </div>
+                                <button type="submit" class="w-full bg-blue-600 text-white font-bold py-3 px-6 rounded-lg cta-button">
+                                    Submit & Download Guide
+                                </button>
+                            </form>
+                            <p id="form-success-message" class="hidden mt-4 text-center text-green-600">Thank you! Your message has been sent and the guide is on its way.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-200">
+        <div class="container mx-auto px-6 py-8">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-500">&copy; 2025 Heathrow Capital Partners. All Rights Reserved.</p>
+                <div class="flex space-x-6 mt-4 md:mt-0">
+                    <a href="#" class="text-gray-500 hover:text-gray-800 transition">Privacy Policy</a>
+                    <a href="#" class="text-gray-500 hover:text-gray-800 transition">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Mobile Menu Toggle
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenuButton.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+            mobileMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+            });
+
+            // Contact Form Submission
+            const contactForm = document.getElementById('contact-form');
+            const successMessage = document.getElementById('form-success-message');
+            contactForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+                contactForm.reset();
+                successMessage.classList.remove('hidden');
+                setTimeout(() => successMessage.classList.add('hidden'), 5000);
+            });
+
+            // Scroll Animations
+            const animatedElements = document.querySelectorAll('.animate-on-scroll');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                    }
+                });
+            }, {
+                threshold: 0.1 // Trigger when 10% of the element is visible
+            });
+
+            animatedElements.forEach(el => {
+                observer.observe(el);
+            });
+        });
+    </script>
+
+</body>
+</html>
